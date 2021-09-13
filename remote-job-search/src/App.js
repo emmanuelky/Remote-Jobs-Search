@@ -1,6 +1,7 @@
 import './App.css';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
 import Home from './components/Home'
+import CompanyDetail from './components/CompanyDetail'
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 function App() {
@@ -9,7 +10,7 @@ function App() {
       <div className="">
         <Home path='/' exact />
         <Switch>
-          <Route exact path="/company-detail" />
+          <Route exact path="/company-detail" component={CompanyDetail} />
         </Switch>
       </div>
     </Router>
