@@ -11,8 +11,6 @@ const MyNavBar = ({ jobs }) => {
         console.log(e)
         setSearch(e.target.value)
     }
-
-
     return (
         <div>
             <Navbar bg="light" variant="light">

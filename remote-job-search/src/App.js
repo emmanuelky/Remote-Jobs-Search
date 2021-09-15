@@ -3,11 +3,13 @@ import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
 import Home from './components/Home'
 import CompanyDetail from './components/CompanyDetail'
 import 'bootstrap/dist/css/bootstrap.min.css';
+import MyNavBar from './components/MyNavBar';
 
 function App() {
   return (
     <Router>
       <div className="">
+        <MyNavBar />
         <Route path='/' exact component={Home} />
         <Switch>
           <Route exact path="/company-detail" component={CompanyDetail} />
@@ -16,5 +18,8 @@ function App() {
     </Router>
   );
 }
+
+
+
 
 export default App;
