@@ -1,11 +1,18 @@
-import initialState from '../store'
+import { initialState } from '../store'
 
-export const rootReducer = (state = initialState, action) => {
+const rootReducer = (state = initialState, action) => {
     switch (action.type) {
         case 'ADD_JOB_TO_FAVOURITE':
             return {
                 ...state,
-                favourites: [...state.user.favourites, action.payload]
+                user: {
+                    ...state.user,
+                    favourites: [...state.user.favourites, action.payload]
+                }
             }
+        default:
+            return state
     }
 }
+
+export default rootReducer

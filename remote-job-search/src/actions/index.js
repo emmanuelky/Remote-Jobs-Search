@@ -1,9 +1,9 @@
-export const addToFavourite = (joblist) = ({
+export const addToFavourite = (joblist) => ({
     type: 'ADD_JOB_TO_FAVOURITE',
-    payload: 'joblist'
+    payload: joblist,
 })
 
-export const removeFromFavourite = (removejob) = ({
-    type: 'ADD_JOB_TO_FAVOURITE',
-    payload: 'removejob'
-})
+// export const removeFromFavourite = (removejob) = ({
+//     type: 'ADD_JOB_TO_FAVOURITE',
+//     payload: 'removejob'
+// })

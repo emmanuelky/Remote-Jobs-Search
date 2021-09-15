@@ -3,9 +3,20 @@ import MyNavBar from './MyNavBar'
 import axios from 'axios'
 import { Card, Button } from 'react-bootstrap'
 import { Link } from 'react-router-dom'
+import { connect } from 'react-redux'
+import { addToFavourite, removeFromFavourite } from '../actions'
 
 
-const Home = () => {
+const mapStateToProps = (state) => state;
+
+const mapDispatchToProps = (dispatch) => ({
+    addJobToFavourite: (joblist) => dispatch(addToFavourite(joblist)),
+
+})
+
+
+
+const Home = ({ addJobToFavourite }) => {
     const [jobs, setJobs] = useState([])
 
 
@@ -38,6 +49,7 @@ const Home = () => {
                 {
                     jobs?.map((job, i) => (<>
                         <Card style={{ width: '18rem' }} className='m-3 shadow-sm' >
+                            {/* {console.log(job)} */}
                             {/* <Card.Img variant="top" src={job.company_logo_url} className='img-fluid' /> */}
                             <Card.Body>
                                 <Link to="/company-detail">
@@ -50,8 +62,8 @@ const Home = () => {
 
                                     <Button variant="primary" className="text-center">View</Button>
 
-                                    <div style={{ fontSize: '30px', cursor: 'pointer' }}>
-                                        <i class="fas fa-heart text-warning" ></i>
+                                    <div onClick={() => addJobToFavourite(job)} style={{ fontSize: '30px', cursor: 'pointer' }}>
+                                        <i class="fas fa-heart text-warning"  ></i>
                                     </div>
 
                                 </div>
@@ -67,4 +79,4 @@ const Home = () => {
     )
 }
 
-export default Home
+export default connect(mapStateToProps, mapDispatchToProps)(Home)
