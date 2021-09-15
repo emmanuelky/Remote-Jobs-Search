@@ -19,9 +19,13 @@ const MyNavBar = ({ jobs }) => {
                         <Navbar.Brand href="/">REMOTEJOBS</Navbar.Brand>
                     </Link>
 
-                    <Nav className="me-auto">
-
-                    </Nav>
+                    <Link to='/favourite'>
+                        <Nav className="me-auto">
+                            <h5>
+                                My Favourite
+                            </h5>
+                        </Nav>
+                    </Link>
                     <Form className="d-flex">
                         <FormControl
                             type="search"
