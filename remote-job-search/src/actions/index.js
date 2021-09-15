@@ -3,7 +3,7 @@ export const addToFavourite = (joblist) => ({
     payload: joblist,
 })
 
-// export const removeFromFavourite = (removejob) = ({
-//     type: 'ADD_JOB_TO_FAVOURITE',
-//     payload: 'removejob'
-// })
+export const removeFromFavourite = (removejob) => ({
+    type: 'REMOVE_JOB_FROM_FAVOURITE',
+    payload: removejob
+})
