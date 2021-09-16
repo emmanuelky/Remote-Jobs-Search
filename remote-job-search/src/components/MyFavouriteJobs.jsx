@@ -31,8 +31,10 @@ const MyFavouriteJobs = ({ jobs, removeJobFromFavourite }) => {
                             </Card.Text>
                             <div className='d-flex justify-content-between' >
 
-                                <Button variant="primary" className="text-center">View</Button>
-                                <div onClick={() => removeJobFromFavourite(i)} style={{ fontSize: '20px', cursor: 'pointer' }}>
+                                <Link to='/company-detail'>
+                                    <Button variant="primary" className="text-center">View</Button>
+                                </Link>
+                                <div onClick={() => removeJobFromFavourite(job._id)} style={{ fontSize: '20px', cursor: 'pointer' }}>
                                     <i class="far fa-trash-alt text-danger"></i>
                                 </div>
                             </div>
