@@ -8,6 +8,14 @@ const jobsReducer = (state = initialState.Jobs, action) => {
                 jobslists: action.payload
 
             }
+
+        case 'SHOW_COMPANY_DETAIL':
+            return {
+                ...state,
+                jobslists: [action.payload]
+
+            }
+
         default:
             return state
     }

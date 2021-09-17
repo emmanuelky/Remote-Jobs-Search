@@ -24,6 +24,6 @@ const allReducers = combineReducers({
 
 const store = createStore(allReducers,
     initialState,
-    process.env.REACT_APP_DEVELOPMENT ? composeEnhancers(applyMiddleware(thunk)) : compose(applyMiddleware(thunk)))
+    composeEnhancers(applyMiddleware(thunk)))
 
 export default store

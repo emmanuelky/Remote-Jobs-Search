@@ -26,17 +26,7 @@ const MyNavBar = ({ jobs }) => {
                             </h5>
                         </Nav>
                     </Link>
-                    <Form className="d-flex">
-                        <FormControl
-                            type="search"
-                            placeholder="Search"
-                            className="mr-2"
-                            aria-label="Search"
-                            value={search}
-                            onChange={(e) => handleOnInputChange(e)}
-                        />
-                        <Button variant="outline-success">Search</Button>
-                    </Form>
+
                 </Container>
             </Navbar>
         </div>

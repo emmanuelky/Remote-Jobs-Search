@@ -23,7 +23,7 @@ const MyFavouriteJobs = ({ jobs, removeJobFromFavourite }) => {
                     <Card style={{ width: '18rem' }} className='m-3 shadow-sm' >
                         {/* <Card.Img variant="top" src={job.company_logo_url} className='img-fluid' /> */}
                         <Card.Body>
-                            <Link to="/company-detail">
+                            <Link to={`/${job.company_name}`}>
                                 <Card.Title>{job.title} - <i>{job.job_type}</i> </Card.Title>
                             </Link>
                             <Card.Text>
@@ -31,7 +31,7 @@ const MyFavouriteJobs = ({ jobs, removeJobFromFavourite }) => {
                             </Card.Text>
                             <div className='d-flex justify-content-between' >
 
-                                <Link to='/company-detail'>
+                                <Link to={`/${job.company_name}`}>
                                     <Button variant="primary" className="text-center">View</Button>
                                 </Link>
                                 <div onClick={() => removeJobFromFavourite(job._id)} style={{ fontSize: '20px', cursor: 'pointer' }}>
