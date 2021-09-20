@@ -6,28 +6,39 @@ import { Link } from 'react-router-dom'
 import { connect } from 'react-redux'
 import { addToFavourite, removeFromFavourite, showJobsList } from '../actions'
 import Loader from '../components/Loader'
+import { useSelector, useDispatch } from 'react-redux'
 
 
 
-const mapStateToProps = (state) => ({
-    jobs: state.Jobs.jobslists,
-    // favJob: state.user.favourites.map(f => (f.company_name)),
-    favourites: state.user.favourites
+// const mapStateToProps = (state) => ({
+//     jobs: state.Jobs.jobslists,
+//     favJob: state.user.favourites.map(f => (f.company_name)),
+//     favourites: state.user.favourites
 
-})
+// })
 
-const mapDispatchToProps = (dispatch) => ({
-    addJobToFavourite: (joblist) => dispatch(addToFavourite(joblist)),
-    fetchJobs: (query) => dispatch(showJobsList(query)),
-    removeJobFromFavourite: (removejob) => dispatch(removeFromFavourite(removejob))
-})
+// const mapDispatchToProps = (dispatch) => ({
+//     addJobToFavourite: (joblist) => dispatch(addToFavourite(joblist)),
+//     fetchJobs: (query) => dispatch(showJobsList(query)),
+//     removeJobFromFavourite: (removejob) => dispatch(removeFromFavourite(removejob))
+// })
 
-const Home = ({ addJobToFavourite, fetchJobs, jobs, favJob, favourites, removeJobFromFavourite }) => {
+
+
+
+
+
+const Home = ({ history, location }) => {
+
+    const dispatch = useDispatch()
+
+    const jobs = useSelector(state => state.Jobs.jobslists)
+    const favourites = useSelector(state => state.user.favourites)
 
 
     useEffect(() => {
 
-        fetchJobs()
+        showJobsList()
     }, [])
 
 
@@ -41,7 +52,7 @@ const Home = ({ addJobToFavourite, fetchJobs, jobs, favJob, favourites, removeJo
                         placeholder="Search e.g frontend or by company name... "
                         className="mr-2"
                         aria-label="Search"
-                        onKeyUp={(e) => fetchJobs(e.target.value)}
+                        onKeyUp={(e) => showJobsList(e.target.value)}
                     />
                     <Button variant="outline-success">Search</Button>
                 </Form>
@@ -70,7 +81,7 @@ const Home = ({ addJobToFavourite, fetchJobs, jobs, favJob, favourites, removeJo
                                 <button type='button'>
                                     <i
                                         className='far fa-star'
-                                        onClick={() => addJobToFavourite(job)}
+                                        onClick={() => dispatch(addToFavourite(job))}
                                     ></i>
 
                                 </button>
@@ -80,7 +91,7 @@ const Home = ({ addJobToFavourite, fetchJobs, jobs, favJob, favourites, removeJo
                                     <button type='button'>
                                         <i
                                             className={favourites.find((j) => j === j.id) ? 'far fa-star' : 'fas fa-star'}
-                                            onClick={() => favourites.find((j) => j === j.id) ? removeJobFromFavourite(job) : addJobToFavourite(job)}
+                                            onClick={() => favourites.find((j) => j === j.id) ? dispatch(removeFromFavourite(job)) : addJobToFavourite(job)}
                                         ></i>
 
                                     </button>
@@ -101,4 +112,4 @@ const Home = ({ addJobToFavourite, fetchJobs, jobs, favJob, favourites, removeJo
     )
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(Home)
+export default Home
