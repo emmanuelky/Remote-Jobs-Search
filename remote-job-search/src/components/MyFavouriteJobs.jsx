@@ -1,20 +1,29 @@
 import React from 'react'
-import { connect } from 'react-redux'
+// import { connect } from 'react-redux'
 import { Card, Button } from 'react-bootstrap'
 import { Link } from 'react-router-dom'
 import { removeFromFavourite } from '../actions'
+import { useSelector, useDispatch } from 'react-redux'
 
 
-const mapStateToProps = (state) => ({
-    jobs: state.user.favourites,
-})
 
-const mapDispatchToProps = (dispatch) => ({
-    removeJobFromFavourite: (removejob) => dispatch(removeFromFavourite(removejob))
-})
+// const mapStateToProps = (state) => ({
+//     jobs: state.user.favourites,
+// })
 
-const MyFavouriteJobs = ({ jobs, removeJobFromFavourite }) => {
-    console.log(jobs)
+// const mapDispatchToProps = (dispatch) => ({
+//     removeJobFromFavourite: (removejob) => dispatch(removeFromFavourite(removejob))
+// })
+
+const MyFavouriteJobs = ({ history, location }) => {
+
+
+
+    const dispatch = useDispatch()
+
+
+    const jobs = useSelector(state => state.user.favourites)
+
     return (<>
         <h4 className="text-center">My Favorite Jobs</h4>
         <div className="d-flex flex-wrap mx-5 my-5 justify-content-center rounded">
@@ -34,7 +43,7 @@ const MyFavouriteJobs = ({ jobs, removeJobFromFavourite }) => {
                                 <Link to={`/${job.company_name}`}>
                                     <Button variant="primary" className="text-center">View</Button>
                                 </Link>
-                                <div onClick={() => removeJobFromFavourite(job._id)} style={{ fontSize: '20px', cursor: 'pointer' }}>
+                                <div onClick={() => dispatch(removeFromFavourite(job._id))} style={{ fontSize: '20px', cursor: 'pointer' }}>
                                     <i class="far fa-trash-alt text-danger"></i>
                                 </div>
                             </div>
@@ -47,4 +56,4 @@ const MyFavouriteJobs = ({ jobs, removeJobFromFavourite }) => {
     </>)
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(MyFavouriteJobs)
+export default MyFavouriteJobs

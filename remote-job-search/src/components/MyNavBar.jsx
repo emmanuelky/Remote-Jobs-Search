@@ -6,11 +6,7 @@ import { Link } from 'react-router-dom'
 const MyNavBar = ({ jobs }) => {
     const [search, setSearch] = useState('')
 
-    const handleOnInputChange = (e) => {
-        e.preventDefault();
-        console.log(e)
-        setSearch(e.target.value)
-    }
+
     return (
         <div>
             <Navbar bg="light" variant="light">
