@@ -4,6 +4,11 @@ import thunk from 'redux-thunk'
 import userReducer from '../reducers/user'
 import jobsReducer from '../reducers/jobs'
 
+import { persistStore, persistReducer } from 'redux-persist'
+import storage from 'redux-persist/lib/storage'
+// import storageSession from 'redux-persist/lib/storage/session'
+import { encryptTransform } from 'redux-persist-transform-encrypt'
+
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__
 
 
@@ -16,14 +21,26 @@ export const initialState = {
     }
 }
 
+const persistConfig = {
+    key: '/',
+    storage
+}
+
 const allReducers = combineReducers({
     user: userReducer,
     Jobs: jobsReducer
 })
 
+const persistAllReducers = persistReducer(
+    persistConfig, allReducers
+)
 
-const store = createStore(allReducers,
+
+
+
+export const store = createStore(persistAllReducers,
     initialState,
-    composeEnhancers(applyMiddleware(thunk)))
+    composeEnhancers(applyMiddleware(thunk))
+)
 
-export default store
+export const persistor = persistStore(store)

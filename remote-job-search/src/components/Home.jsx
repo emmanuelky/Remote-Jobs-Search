@@ -11,29 +11,34 @@ import Loader from '../components/Loader'
 
 const mapStateToProps = (state) => ({
     jobs: state.Jobs.jobslists,
+    // favJob: state.user.favourites.map(f => (f.company_name)),
+    favourites: state.user.favourites
+
 })
 
 const mapDispatchToProps = (dispatch) => ({
     addJobToFavourite: (joblist) => dispatch(addToFavourite(joblist)),
     fetchJobs: (query) => dispatch(showJobsList(query)),
-
+    removeJobFromFavourite: (removejob) => dispatch(removeFromFavourite(removejob))
 })
 
-const Home = ({ addJobToFavourite, fetchJobs, jobs, }) => {
+const Home = ({ addJobToFavourite, fetchJobs, jobs, favJob, favourites, removeJobFromFavourite }) => {
 
 
     useEffect(() => {
+
         fetchJobs()
     }, [])
 
-    return (
-        <>
 
-            <div className="d-flex mx-5 mt-5 mb-1 justify-content-center">
-                <Form className="d-flex w-50">
+    return (
+
+        <>
+            <div className=" flex justify-center mb-4 mt-5 ">
+                <Form className="flex w-1/1 justify-center">
                     <FormControl
                         type="text"
-                        placeholder="Job Search e.g frontend or by company name... "
+                        placeholder="Search e.g frontend or by company name... "
                         className="mr-2"
                         aria-label="Search"
                         onKeyUp={(e) => fetchJobs(e.target.value)}
@@ -42,25 +47,44 @@ const Home = ({ addJobToFavourite, fetchJobs, jobs, }) => {
                 </Form>
             </div>
 
-            <div className="d-flex flex-wrap mx-5 mb-5 mt-3 justify-content-center rounded ">
+
+            <div className="flex flex-wrap container-full  justify-center ">
+
                 {jobs?.map((job, i) => (<>
-                    <Card style={{ width: '18rem' }} className='hover:shadow-2xl sm:mx-2' >
-                        <Card.Body className="">
+                    <Card className='w-1/5 hover:shadow-md sm:mx-2 my-2 rounded  ' >
+                        <Card.Body className=" backdrop-filter backdrop-blur-3xl hover:bg-pink-100 bg-gradient-to-tr from-gray-200 to-transparent bg-opacity-20">
                             <Link to={`/${job.company_name}`}>
                                 <Card.Title>{job.title} - <i>{job.job_type}</i> </Card.Title>
                             </Link>
                             <Card.Text>
                                 by  {job.company_name} - {job.candidate_required_location}
                             </Card.Text>
-                            <div className='d-flex justify-content-between' >
+                            <div className='flex  pt-2 justify-around'>
 
-                                <Link to={`/${job.company_name}`}>
-                                    <Button variant="primary" className="text-center">View</Button>
-                                </Link>
-                                <div onClick={() => addJobToFavourite(job)} style={{ fontSize: '20px', cursor: 'pointer' }}>
-                                    <i class="fas fa-heart text-warning"  ></i>
+                                <div>
+                                    <Link to={`/${job.company_name}`}>
+                                        <button variant="primary" className="text-center">View</button>
+                                    </Link>
                                 </div>
 
+                                <button type='button'>
+                                    <i
+                                        className='far fa-star'
+                                        onClick={() => addJobToFavourite(job)}
+                                    ></i>
+
+                                </button>
+
+
+                                {/* {<div>
+                                    <button type='button'>
+                                        <i
+                                            className={favourites.find((j) => j === j.id) ? 'far fa-star' : 'fas fa-star'}
+                                            onClick={() => favourites.find((j) => j === j.id) ? removeJobFromFavourite(job) : addJobToFavourite(job)}
+                                        ></i>
+
+                                    </button>
+                                </div>} */}
 
                             </div>
                         </Card.Body>
@@ -68,6 +92,8 @@ const Home = ({ addJobToFavourite, fetchJobs, jobs, }) => {
 
                 </>))
                 }
+
+
             </div>
 
 
