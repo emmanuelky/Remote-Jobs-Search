@@ -11,7 +11,6 @@ import { encryptTransform } from 'redux-persist-transform-encrypt'
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__
 
-
 export const initialState = {
     user: {
         favourites: [],
@@ -22,8 +21,13 @@ export const initialState = {
 }
 
 const persistConfig = {
-    key: '/',
-    storage
+    key: 'root',
+    storage,
+    transforms: [
+        encryptTransform({
+            secretKey: process.env.REACT_APP_ENCRYPT_KEY,
+        }),
+    ],
 }
 
 const allReducers = combineReducers({
@@ -34,9 +38,6 @@ const allReducers = combineReducers({
 const persistAllReducers = persistReducer(
     persistConfig, allReducers
 )
-
-
-
 
 export const store = createStore(persistAllReducers,
     initialState,
