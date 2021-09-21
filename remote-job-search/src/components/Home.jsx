@@ -9,25 +9,6 @@ import Loader from '../components/Loader'
 import { useSelector, useDispatch } from 'react-redux'
 
 
-
-// const mapStateToProps = (state) => ({
-//     jobs: state.Jobs.jobslists,
-//     favJob: state.user.favourites.map(f => (f.company_name)),
-//     favourites: state.user.favourites
-
-// })
-
-// const mapDispatchToProps = (dispatch) => ({
-//     addJobToFavourite: (joblist) => dispatch(addToFavourite(joblist)),
-//     fetchJobs: (query) => dispatch(showJobsList(query)),
-//     removeJobFromFavourite: (removejob) => dispatch(removeFromFavourite(removejob))
-// })
-
-
-
-
-
-
 const Home = ({ history, location }) => {
 
     const dispatch = useDispatch()
@@ -36,25 +17,34 @@ const Home = ({ history, location }) => {
     const favourites = useSelector(state => state.user.favourites)
 
 
-    useEffect(() => {
+    const favJob = favourites.map((favourite) => favourite._id)
 
-        showJobsList()
+    useEffect(() => {
+        dispatch(showJobsList())
     }, [])
 
+
+    const toggleFavourite = (job) => {
+        if (favJob.find(el => el === job._id)) {
+            dispatch(removeFromFavourite(job._id))
+        } else {
+            dispatch(addToFavourite(job))
+        }
+    }
 
     return (
 
         <>
-            <div className=" flex justify-center mb-4 mt-5 ">
-                <Form className="flex w-1/1 justify-center">
+            <div className=" flex justify-center mb-4 mt-5 sticky-top ">
+                <Form className="flex w-1/1 justify-center mt-3">
                     <FormControl
                         type="text"
                         placeholder="Search e.g frontend or by company name... "
                         className="mr-2"
                         aria-label="Search"
-                        onKeyUp={(e) => showJobsList(e.target.value)}
+                        onKeyUp={(e) => dispatch(showJobsList(e.target.value))}
                     />
-                    <Button variant="outline-success">Search</Button>
+                    <Button variant="outline-success" onClick={() => dispatch(showJobsList())}>Search</Button>
                 </Form>
             </div>
 
@@ -62,42 +52,33 @@ const Home = ({ history, location }) => {
             <div className="flex flex-wrap container-full  justify-center ">
 
                 {jobs?.map((job, i) => (<>
-                    <Card className='w-1/5 hover:shadow-md sm:mx-2 my-2 rounded  ' >
-                        <Card.Body className=" backdrop-filter backdrop-blur-3xl hover:bg-pink-100 bg-gradient-to-tr from-gray-200 to-transparent bg-opacity-20">
+                    <Card className='w-1/5 hover:shadow-sm sm:mx-2 my-2  rounded backdrop-blur-3xl  ' >
+                        <Card.Body className=" backdrop-filter bg-pink-100 bg-gradient-to-tr from-gray-200 to-transparent hover:bg-white bg-gradient-to-tr from-white   ">
+                            <div className=" text-right ">
+
+                                <i
+                                    className={favourites.find(j => j._id === job._id) ? 'fas fa-star text-warning ' : 'far fa-star text-warning'}
+                                    onClick={() => toggleFavourite(job)}
+                                ></i>
+                            </div>
                             <Link to={`/${job.company_name}`}>
                                 <Card.Title>{job.title} - <i>{job.job_type}</i> </Card.Title>
                             </Link>
                             <Card.Text>
-                                by  {job.company_name} - {job.candidate_required_location}
-                            </Card.Text>
-                            <div className='flex  pt-2 justify-around'>
+                                by  {job.company_name.toLowerCase()} - {job.candidate_required_location}
 
-                                <div>
+                            </Card.Text>
+                            {/* <div className='flex  pt-2 justify-around'> */}
+
+                            {/* <div>
                                     <Link to={`/${job.company_name}`}>
                                         <button variant="primary" className="text-center">View</button>
                                     </Link>
-                                </div>
-
-                                <button type='button'>
-                                    <i
-                                        className='far fa-star'
-                                        onClick={() => dispatch(addToFavourite(job))}
-                                    ></i>
-
-                                </button>
+                                </div> */}
 
 
-                                {/* {<div>
-                                    <button type='button'>
-                                        <i
-                                            className={favourites.find((j) => j === j.id) ? 'far fa-star' : 'fas fa-star'}
-                                            onClick={() => favourites.find((j) => j === j.id) ? dispatch(removeFromFavourite(job)) : addJobToFavourite(job)}
-                                        ></i>
 
-                                    </button>
-                                </div>} */}
-
-                            </div>
+                            {/* </div> */}
                         </Card.Body>
                     </Card>
 

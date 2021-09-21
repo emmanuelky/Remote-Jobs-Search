@@ -9,7 +9,7 @@ import MyFavouriteJobs from './components/MyFavouriteJobs';
 function App() {
   return (
     <Router>
-      <div className="bg-pink-50 h-100 w-100   ">
+      <div className="bg-pink-50 h-100 w-100 pb-5  ">
         <MyNavBar />
         <Route path='/' exact component={Home} />
         <Switch>

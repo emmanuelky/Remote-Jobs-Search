@@ -24,9 +24,9 @@ const MyFavouriteJobs = ({ history, location }) => {
 
     const jobs = useSelector(state => state.user.favourites)
 
-    return (<>
+    return (<div div className="bg-pink-50 h-screen w-screen">
         <h4 className="text-center">My Favorite Jobs</h4>
-        <div className="d-flex flex-wrap mx-5 my-5 justify-content-center rounded">
+        <div className="d-flex flex-wrap mx-5 my-5 justify-content-center rounded ">
             {
                 jobs?.map((job, i) => (<>
                     <Card style={{ width: '18rem' }} className='m-3 shadow-sm' >
@@ -53,7 +53,7 @@ const MyFavouriteJobs = ({ history, location }) => {
                 </>))
             }
         </div>
-    </>)
+    </div>)
 }
 
 export default MyFavouriteJobs
