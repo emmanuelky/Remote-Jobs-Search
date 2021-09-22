@@ -12,8 +12,13 @@ const jobsReducer = (state = initialState.Jobs, action) => {
         case 'SHOW_COMPANY_DETAIL':
             return {
                 ...state,
-                jobslists: [action.payload]
+                companydetail: action.payload
+            }
 
+        case 'HANDLE_PAGE_LOAD':
+            return {
+                ...state,
+                loading: false
             }
 
         default:

@@ -20,7 +20,8 @@ const MyNavBar = ({ jobs }) => {
                     <Link to='/favourite'>
                         <Nav className="me-auto">
                             <h6>
-                                Favourite-Jobs <i class="fas fa-star text-warning mx-1"></i>{favouriteJob}
+                                My Jobs <i className={favouriteJob > 0 ? "fas fa-heart text-danger mx-1" : "far fa-heart text-warning mx-1"}></i>
+                                <span> {favouriteJob}</span>
                             </h6>
                         </Nav>
                     </Link>

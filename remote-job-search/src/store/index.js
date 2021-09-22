@@ -17,6 +17,8 @@ export const initialState = {
     },
     Jobs: {
         jobslists: [],
+        companydetail: [],
+        loading: true,
     }
 }
 

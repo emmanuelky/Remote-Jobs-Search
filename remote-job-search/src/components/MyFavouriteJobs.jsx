@@ -1,36 +1,26 @@
 import React from 'react'
-// import { connect } from 'react-redux'
 import { Card, Button } from 'react-bootstrap'
 import { Link } from 'react-router-dom'
 import { removeFromFavourite } from '../actions'
 import { useSelector, useDispatch } from 'react-redux'
 
 
-
-// const mapStateToProps = (state) => ({
-//     jobs: state.user.favourites,
-// })
-
-// const mapDispatchToProps = (dispatch) => ({
-//     removeJobFromFavourite: (removejob) => dispatch(removeFromFavourite(removejob))
-// })
-
 const MyFavouriteJobs = ({ history, location }) => {
-
-
 
     const dispatch = useDispatch()
 
+    const myJobs = useSelector(state => state.user.favourites)
+    console.log(myJobs)
 
-    const jobs = useSelector(state => state.user.favourites)
 
     return (<div div className="bg-pink-50 h-screen w-screen">
-        <h4 className="text-center">My Favorite Jobs</h4>
+        <div className="sticky-top mt-2">
+            <h4 className="text-center mt-5">My Jobs</h4>
+        </div>
         <div className="d-flex flex-wrap mx-5 my-5 justify-content-center rounded ">
-            {
-                jobs?.map((job, i) => (<>
+            {myJobs.length > 0 ?
+                myJobs?.map((job, i) => (<>
                     <Card style={{ width: '18rem' }} className='m-3 shadow-sm' >
-                        {/* <Card.Img variant="top" src={job.company_logo_url} className='img-fluid' /> */}
                         <Card.Body>
                             <Link to={`/${job.company_name}`}>
                                 <Card.Title>{job.title} - <i>{job.job_type}</i> </Card.Title>
@@ -50,7 +40,9 @@ const MyFavouriteJobs = ({ history, location }) => {
                         </Card.Body>
                     </Card>
 
-                </>))
+                </>)) : <div>
+                    <span>Add your favourite jobs here!</span>
+                </div>
             }
         </div>
     </div>)
