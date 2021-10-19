@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom'
 import { useSelector } from 'react-redux'
 
 
+
 const MyNavBar = ({ jobs }) => {
 
     const favouriteJob = useSelector(state => state.user.favourites.length)
@@ -28,6 +29,8 @@ const MyNavBar = ({ jobs }) => {
 
                 </Container>
             </Navbar>
+
+
         </div>
     )
 }
