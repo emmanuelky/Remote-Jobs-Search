@@ -1,6 +1,5 @@
 {
   "name": "remote-job-search",
-  "homepage": "https://remote-jobs-search.vercel.app",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
